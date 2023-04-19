@@ -42,25 +42,25 @@ jobs:
     - name: Upload files to cdn
       uses: appleboy/scp-action@master
       with:
-        host: nyanotrasen.moe
-        username: boywife-ralsei
+        host: cdn.box.jick.io
+        username: pache
         key: ${{ secrets.BUILDS_PUSH_KEY }}
-        port: ${{ secrets.PUBLISH_SSH_PORT }}
+        port: 22
         source: "release/${{ github.sha }}"
-        target: "/var/www/builds.nyanotrasen.moe/nyanotrasen/builds/"
+        target: "/var/lib/jickbox-builds/builds"
         strip_components: 1
 
     - name: Update manifest JSON
       uses: appleboy/ssh-action@master
       with:
-        host: nyanotrasen.moe
-        username: boywife-ralsei
+        host: cdn.box.jick.io
+        username: pache
         key: ${{ secrets.BUILDS_PUSH_KEY }}
-        port: ${{ secrets.PUBLISH_SSH_PORT }}
-        script: /var/www/builds.nyanotrasen.moe/manifest.py -c nyanotrasen -v ${{ github.sha }}
+        port: 22
+        script: /home/pache/push.s1 ${{ github.sha }}
 
-    - name: Publish changelog
-      run: Tools/actions_changelogs_since_last_run.py
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        DISCORD_WEBHOOK_URL: ${{ secrets.CHANGELOG_DISCORD_WEBHOOK }}
+#    - name: Publish changelog
+#      run: Tools/actions_changelogs_since_last_run.py
+#      env:
+#        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        DISCORD_WEBHOOK_URL: ${{ secrets.CHANGELOG_DISCORD_WEBHOOK }}
