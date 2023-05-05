@@ -28,6 +28,7 @@
   - type: Examiner
     skipChecks: true
   - type: Ghost
+    canInteract: true
   - type: IntrinsicRadioReceiver
   - type: ActiveRadio
     channels:
@@ -57,3 +58,7 @@
     baseSprintSpeed: 8
     baseWalkSpeed: 5
   - type: MovementIgnoreGravity
+  - type: Hands
+  - type: Body
+    prototype: Aghost
+  - type: DoAfter
